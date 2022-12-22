@@ -61,6 +61,8 @@ async function ludwigLiveCheck(client:CustomClient) {
                         });
                     }
                 }
+            } else {
+                makeLog("No Ludwig Stream Scheduled");
             }
         }
     } catch (error) {
