@@ -25,7 +25,27 @@ const client = new Client({
 
 const rest = new REST({ version: '10' }).setToken(TOKEN);
 
-client.on('ready', () => { console.log(`${client.user.tag} has logged in.`) });
+async function main() {
+
+    makeHeading("EXECUTING MAIN")
+
+    const eventsPath = path.join(__dirname, 'events');
+    const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+
+    for (const file of eventFiles) {
+        const filePath = path.join(eventsPath, file).replaceAll('\\', '/');
+        const event = await import(`file:///${filePath}`);
+        if (event.name != undefined && event.execute != undefined) {
+            if (event.once) {
+                client.once(event.name, (...args) => event.execute(...args));
+            } else {
+                client.on(event.name, (...args) => event.execute(...args));
+            }
+        } else {
+            makeWarning(`The event at ${filePath} is missing a required "name" or "execute" property.`);
+        }
+    }
+
 
     client.commands = new Collection();
     const commandsPath = path.join(__dirname, 'commands');
