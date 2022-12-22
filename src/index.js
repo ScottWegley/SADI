@@ -27,13 +27,21 @@ const rest = new REST({ version: '10' }).setToken(TOKEN);
 
 client.on('ready', () => { console.log(`${client.user.tag} has logged in.`) });
 
-async function main() {
-    const commmands = [
-        {
-            name: 'ping',
-            description: 'Replies with "Pong!"',
-        },
-    ];
+    client.commands = new Collection();
+    const commandsPath = path.join(__dirname, 'commands');
+    const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+    const cmdArr = [];
+
+    for (const file of commandFiles) {
+        const filePath = path.join(commandsPath, file).replaceAll('\\', '/');
+        const command = await import(`file:///${filePath}`);
+        if (command.data != undefined && command.execute != undefined) {
+            client.commands.set(command.data.name, command);
+            cmdArr.push(command.data.toJSON());
+        } else {
+            makeWarning(`The command at ${filePath} is missing a required "data" or "execute" property.`);
+        }
+    }
 
     try {
         await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
