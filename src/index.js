@@ -23,7 +23,7 @@ const client = new Client({
     ]
 });
 
-const rest = new REST({ version: '10' }).setToken(TOKEN)
+const rest = new REST({ version: '10' }).setToken(TOKEN);
 
 client.on('ready', () => { console.log(`${client.user.tag} has logged in.`) });
 
