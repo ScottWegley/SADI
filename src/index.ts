@@ -1,11 +1,11 @@
 import { config } from 'dotenv';
-import { Client, Collection, CommandInteractionOptionResolver, GatewayIntentBits, REST, Routes } from 'discord.js';
+import { Collection, CommandInteractionOptionResolver, GatewayIntentBits, REST, Routes } from 'discord.js';
 import { ludwigLiveCheck } from './scripts/ludwigLive.js';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import { makeError, makeWarning, makeLog, makeHeading } from './utils/ColorfulConsole.js'
+import { makeError, makeWarning, makeLog, makeHeading, makeSuccess } from './utils/ColorfulConsole.js'
 import { CustomClient } from './utils/CustomClient.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -66,7 +66,7 @@ async function main() {
 
     try {
         const data:any = await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), { body: cmdArr });
-        makeLog(`Reloaded ${data.length} slash (/) commands.`)
+        makeSuccess(`Reloaded ${data.length} slash (/) commands.`)
         client.login(TOKEN);
         setInterval(ludwigLiveCheck, 120000, client);
     } catch (e) {
