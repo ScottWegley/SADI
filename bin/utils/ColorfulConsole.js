@@ -1,16 +1,20 @@
+import { ConsoleCodes } from "./ConsoleCodes.js";
 function makeError(msg) {
-    console.log('\x1b[31m%s\x1b[0m', `[!ERROR!] ${msg}`);
+    customLog(`${ConsoleCodes.fg.Red}[!ERROR!] ${msg}`);
 }
 function makeWarning(msg) {
-    console.log('\x1b[33m%s\x1b[0m', `[WARNING] ${msg}`);
+    customLog(`${ConsoleCodes.fg.Yellow}[WARNING] ${msg}`);
 }
 function makeLog(msg) {
-    console.log('\x1b[30m%s\x1b[0m', `[LOGGING] ${msg}`);
+    customLog(`${ConsoleCodes.fg.Black}[LOGGING] ${msg}`);
 }
 function makeHeading(msg) {
-    console.log('\x1b[34m%s\x1b[0m', `[HEADING] ${msg}`);
+    customLog(`${ConsoleCodes.fg.Blue}[HEADING] ${msg}`);
 }
 function makeSuccess(msg) {
-    console.log('\x1b[32m%s\x1b[0m', `[SUCCESS] ${msg}`);
+    customLog(`${ConsoleCodes.fg.Green}[SUCCESS] ${msg}`);
+}
+function customLog(msg) {
+    console.log(`%s${ConsoleCodes.effects.Reset}`, `${msg}`);
 }
 export { makeError, makeWarning, makeLog, makeHeading, makeSuccess };
