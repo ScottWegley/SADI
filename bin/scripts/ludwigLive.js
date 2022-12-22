@@ -2,6 +2,7 @@ import { parse } from 'node-html-parser';
 import fetch from 'node-fetch';
 import { Colors } from 'discord.js';
 import { config } from 'dotenv';
+import { makeLog } from '../utils/ColorfulConsole.js';
 let lastTitle = '';
 config();
 const youtubeAPIkey = process.env.SADI_YOUTUBE_KEY;
@@ -56,6 +57,9 @@ async function ludwigLiveCheck(client) {
                         });
                     }
                 }
+            }
+            else {
+                makeLog("No Ludwig Stream Scheduled");
             }
         }
     }

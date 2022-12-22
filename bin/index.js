@@ -5,7 +5,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import { makeWarning, makeLog, makeHeading } from './utils/ColorfulConsole.js';
+import { makeWarning, makeHeading, makeSuccess } from './utils/ColorfulConsole.js';
 import { CustomClient } from './utils/CustomClient.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -57,7 +57,7 @@ async function main() {
     }
     try {
         const data = await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), { body: cmdArr });
-        makeLog(`Reloaded ${data.length} slash (/) commands.`);
+        makeSuccess(`Reloaded ${data.length} slash (/) commands.`);
         client.login(TOKEN);
         setInterval(ludwigLiveCheck, 120000, client);
     }
