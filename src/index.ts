@@ -6,22 +6,23 @@ import * as path from 'node:path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { makeError, makeWarning, makeLog, makeHeading } from './utils/ColorfulConsole.js'
+import { CustomClient } from './utils/CustomClient.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 config();
-const TOKEN = process.env.SADI_TOKEN;
-const CLIENT_ID = process.env.SADI_CLIENT_ID
-const GUILD_ID = process.env.THELAB_ID;
+const TOKEN:string = process.env.SADI_TOKEN!;
+const CLIENT_ID:string = process.env.SADI_CLIENT_ID!;
+const GUILD_ID:string = process.env.THELAB_ID!;
 
-const client = new Client({
+const client = new CustomClient({
     intents: [
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent
     ]
-});
+}, new Collection());
 
 const rest = new REST({ version: '10' }).setToken(TOKEN);
 
@@ -64,10 +65,10 @@ async function main() {
     }
 
     try {
-        const data = await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), { body: cmdArr });
+        const data:any = await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), { body: cmdArr });
         makeLog(`Reloaded ${data.length} slash (/) commands.`)
         client.login(TOKEN);
-        setInterval(ludwigLiveCheck, 120000, client)
+        setInterval(ludwigLiveCheck, 120000, client);
     } catch (e) {
         console.log(e);
     }
