@@ -5,5 +5,7 @@ export const data = new SlashCommandBuilder()
     .setDescription('Replies with Pong!')
 
 export async function execute(interaction) {
-    await interaction.reply('Pong!');
+    let sent = await interaction.reply('Pinging...');
+    interaction.channel.startTyping();
+    await interaction.editReply(`Pong! ${sent.createdTimestamp - interaction.createdTimestamp}ms`);
 }
