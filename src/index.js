@@ -44,12 +44,12 @@ client.on('ready', () => { console.log(`${client.user.tag} has logged in.`) });
     }
 
     try {
-        await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
-            body: commmands,
-        });
+        const data = await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), { body: cmdArr });
+        makeLog(`Reloaded ${data.length} slash (/) commands.`)
         client.login(TOKEN);
-    } catch (error) {
-        console.log(error);
+        setInterval(ludwigLiveCheck, 120000, client)
+    } catch (e) {
+        console.log(e);
     }
 }
 
