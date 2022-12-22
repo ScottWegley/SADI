@@ -7,11 +7,15 @@ function makeWarning(msg:string) {
 }
 
 function makeLog(msg:string) {
-    console.log('\x1b[32m%s\x1b[0m', `[LOGGING] ${msg}`);
+    console.log('\x1b[30m%s\x1b[0m', `[LOGGING] ${msg}`);
 }
 
 function makeHeading(msg:string) {
     console.log('\x1b[34m%s\x1b[0m', `[HEADING] ${msg}`);
 }
 
-export { makeError, makeWarning, makeLog, makeHeading };
+function makeSuccess(msg:string) {
+    console.log('\x1b[32m%s\x1b[0m',`[SUCCESS] ${msg}`)
+}
+
+export { makeError, makeWarning, makeLog, makeHeading, makeSuccess };
