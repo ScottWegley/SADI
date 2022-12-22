@@ -1,6 +1,14 @@
 import { config } from 'dotenv';
-import { Client, CommandInteractionOptionResolver, GatewayIntentBits, Routes } from 'discord.js';
-import { REST } from '@discordjs/rest';
+import { Client, Collection, CommandInteractionOptionResolver, GatewayIntentBits, REST, Routes } from 'discord.js';
+import { ludwigLiveCheck } from './scripts/ludwigLive.js';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import { makeError, makeWarning, makeLog, makeHeading } from './utils/ColorfulConsole.js'
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 config();
 const TOKEN = process.env.SADI_TOKEN;
