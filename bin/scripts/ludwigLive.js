@@ -11,7 +11,7 @@ const authorID = process.env.AUTHOR_ID;
 async function ludwigLiveCheck(client) {
     try {
         const today = new Date();
-        if (today.getUTCHours() <= 11 || today.getUTCHours() >= 20) { //Between Noon and 3am PST
+        if (today.getUTCHours() < 11 || today.getUTCHours() >= 20) { //Between Noon and 3am PST
             const youtubeURLbase = `https://www.googleapis.com/youtube/v3/videos?key=${youtubeAPIkey}&part=liveStreamingDetails,snippet&id=`;
             const c = {
                 live: false,
