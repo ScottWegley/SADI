@@ -31,3 +31,7 @@ export const ConsoleCodes = {
         Gray: "\x1b[100m"
     }
 } as const;
+
+export type Foreground = typeof ConsoleCodes.fg[keyof typeof ConsoleCodes.fg];
+export type Background = typeof ConsoleCodes.bg[keyof typeof ConsoleCodes.bg];
+export type Effects = typeof ConsoleCodes.effects[keyof typeof ConsoleCodes.effects];
