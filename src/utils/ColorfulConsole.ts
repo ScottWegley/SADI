@@ -1,18 +1,25 @@
 import { ConsoleCodes, Foreground, Background, Effects } from "./ConsoleCodes.js";
 
 type MessageType = '[!ERROR!]' | '[WARNING]' | '[LOGGING]' | '[HEADING]' | '[SUCCESS]';
+
+function makeError(msg: string) {
+    customLog(`${msg}`, [ConsoleCodes.fg.Red, '[!ERROR!]'])
 }
 
-function makeWarning(msg:string) {
-    customLog(`${ConsoleCodes.fg.Yellow}[WARNING] ${msg}`)
+function makeWarning(msg: string) {
+    customLog(`${msg}`, [ConsoleCodes.fg.Yellow, '[WARNING]'])
 }
 
-function makeLog(msg:string) {
-    customLog(`${ConsoleCodes.fg.Black}[LOGGING] ${msg}`)
+function makeLog(msg: string) {
+    customLog(`${msg}`, [ConsoleCodes.fg.Black, '[LOGGING]'])
 }
 
-function makeHeading(msg:string) {
-    customLog(`${ConsoleCodes.fg.Blue}[HEADING] ${msg}`)
+function makeHeading(msg: string) {
+    customLog(`${msg}`, [ConsoleCodes.fg.Blue, '[HEADING]'])
+}
+
+function makeSuccess(msg: string) {
+    customLog(`${msg}`, [ConsoleCodes.fg.Green, '[SUCCESS]']);
 }
 
 function customLog(msg: string, mods: (Foreground | Background | Effects | MessageType)[]) {
