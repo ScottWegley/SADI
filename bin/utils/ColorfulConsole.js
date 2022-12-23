@@ -1,20 +1,28 @@
 import { ConsoleCodes } from "./ConsoleCodes.js";
 function makeError(msg) {
-    customLog(`${ConsoleCodes.fg.Red}[!ERROR!] ${msg}`);
+    customLog(`${msg}`, [ConsoleCodes.fg.Red, '[!ERROR!]']);
 }
 function makeWarning(msg) {
-    customLog(`${ConsoleCodes.fg.Yellow}[WARNING] ${msg}`);
+    customLog(`${msg}`, [ConsoleCodes.fg.Yellow, '[WARNING]']);
 }
 function makeLog(msg) {
-    customLog(`${ConsoleCodes.fg.Black}[LOGGING] ${msg}`);
+    customLog(`${msg}`, [ConsoleCodes.fg.Black, '[LOGGING]']);
 }
 function makeHeading(msg) {
-    customLog(`${ConsoleCodes.fg.Blue}[HEADING] ${msg}`);
+    customLog(`${msg}`, [ConsoleCodes.fg.Blue, '[HEADING]']);
 }
 function makeSuccess(msg) {
-    customLog(`${ConsoleCodes.fg.Green}[SUCCESS] ${msg}`);
+    customLog(`${msg}`, [ConsoleCodes.fg.Green, '[SUCCESS]']);
 }
-function customLog(msg) {
-    console.log(`%s${ConsoleCodes.effects.Reset}`, `${msg}`);
+function customLog(msg, mods) {
+    let modifier = '';
+    mods.forEach((x) => {
+        modifier += x;
+    });
+    console.log(`${(modifier.substring(0, modifier.lastIndexOf('[')) + `[${timestamp()} ` + modifier.substring(modifier.lastIndexOf('[') + 1)).replace(']', '] ')}%s${ConsoleCodes.effects.Reset}`, `${msg}`);
+}
+function timestamp() {
+    let today = new Date();
+    return `${today.getHours().toLocaleString('en-US', { minimumIntegerDigits: 2 })}:${today.getMinutes().toLocaleString('en-US', { minimumIntegerDigits: 2 })}:${today.getSeconds().toLocaleString('en-US', { minimumIntegerDigits: 2 })}`;
 }
 export { makeError, makeWarning, makeLog, makeHeading, makeSuccess };
