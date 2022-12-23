@@ -1,7 +1,6 @@
 import { ConsoleCodes, Foreground, Background, Effects } from "./ConsoleCodes.js";
 
-function makeError(msg:string) {
-    customLog(`${ConsoleCodes.fg.Red}[!ERROR!] ${msg}`)
+type MessageType = '[!ERROR!]' | '[WARNING]' | '[LOGGING]' | '[HEADING]' | '[SUCCESS]';
 }
 
 function makeWarning(msg:string) {
