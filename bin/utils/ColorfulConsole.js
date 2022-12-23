@@ -15,10 +15,7 @@ function makeSuccess(msg) {
     customLog(`${msg}`, [ConsoleCodes.fg.Green, '[SUCCESS]']);
 }
 function customLog(msg, mods) {
-    let modifier = '';
-    mods.forEach((x) => {
-        modifier += x;
-    });
+    let modifier = mods.toString().replaceAll(',', '');
     console.log(`${(modifier.substring(0, modifier.lastIndexOf('[')) + `[${timestamp()} ` + modifier.substring(modifier.lastIndexOf('[') + 1)).replace(']', '] ')}%s${ConsoleCodes.effects.Reset}`, `${msg}`);
 }
 function timestamp() {
