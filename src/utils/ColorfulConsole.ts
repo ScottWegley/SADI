@@ -1,4 +1,4 @@
-import { ConsoleCodes } from "./ConsoleCodes.js";
+import { ConsoleCodes, Foreground, Background, Effects } from "./ConsoleCodes.js";
 
 function makeError(msg:string) {
     customLog(`${ConsoleCodes.fg.Red}[!ERROR!] ${msg}`)
