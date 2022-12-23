@@ -17,6 +17,11 @@ function makeHeading(msg:string) {
 }
 
 function customLog(msg: string, mods: (Foreground | Background | Effects | MessageType)[]) {
+    let modifier: string = '';
+    mods.forEach((x) => {
+        modifier += x;
+    });
+    console.log(`${(modifier.substring(0,modifier.lastIndexOf('[')) + `[${timestamp()} ` + modifier.substring(modifier.lastIndexOf('[') + 1)).replace(']','] ')}%s${ConsoleCodes.effects.Reset}`, `${msg}`)
 }
 
 function timestamp() {
