@@ -1,18 +1,23 @@
-import { CommandInteraction, makeError, SlashCommandBuilder, TextChannel } from "discord.js";
+import { ChatInputCommandInteraction, SlashCommandBuilder, TextChannel } from "discord.js";
+import { makeLog } from "../utils/ColorfulConsole.js";
 
 export const data = new SlashCommandBuilder()
     .setName('delete')
     .setDescription('Deletes X number of messages')
     .addIntegerOption((option) =>
         option.setName('amount')
-            .setDescription('The number os messages to delete (default 100)')
+            .setDescription('The number os messages to delete (default and max 100)')
             .setMinValue(1)
             .setMaxValue(100)
     );
 
-export async function execute(interaction: CommandInteraction) {
-    await interaction.reply(`Deleting X Messages!`);
-    try { (<TextChannel>interaction.channel).bulkDelete(100); }
+export async function execute(interaction: ChatInputCommandInteraction) {
+    let amt = interaction.options.getInteger('amount') || 100;
+    await interaction.reply({content:`Deleting ${amt} Messages!`, ephemeral: true});
+    try { 
+        (<TextChannel>interaction.channel).bulkDelete(amt);
+        makeLog(`Deleted ${amt} messsages`);
+    }
     catch (error) {
         console.log(error)
     }
